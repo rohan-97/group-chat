@@ -36,3 +36,5 @@ class Messages(db.Model):
 class MessageLikeMap(db.Model):
     msgid = db.Column(db.Integer, ForeignKey(Messages.__table__.c['msgid']), primary_key=True)
     uid = db.Column(db.Integer, ForeignKey(Group.__table__.c['gid']), primary_key=True)
+
+db.create_all()

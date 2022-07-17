@@ -7,7 +7,6 @@ def index():
     if request.method == "GET":
         return render_template('index.html')
     else:
-        db.create_all()
         us1 = User(
             username=request.form.get('username'),
             password=request.form.get('password'),
