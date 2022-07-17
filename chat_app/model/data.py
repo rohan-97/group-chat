@@ -32,3 +32,7 @@ class Messages(db.Model):
     uid = db.Column(db.Integer, ForeignKey(Group.__table__.c['gid']), nullable=False)
     message = db.Column(db.Text, nullable=False)
     send_time = db.Column(db.DateTime, primary_key=True, nullable=False)
+
+class MessageLikeMap(db.Model):
+    msgid = db.Column(db.Integer, ForeignKey(Messages.__table__.c['msgid']), primary_key=True)
+    uid = db.Column(db.Integer, ForeignKey(Group.__table__.c['gid']), primary_key=True)
