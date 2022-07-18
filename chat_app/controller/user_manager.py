@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 
+from chat_app.model.data import User
+
+
 def authenticate_user(username:str, password:str) -> int:
     """
     Authenticates user and returns user id after successful auth.
@@ -11,7 +14,11 @@ def authenticate_user(username:str, password:str) -> int:
     :return: user id if the authentication is successful otherwise None in case of failure
     :rtype: int
     """
-    pass
+    user = User.query.filter_by(username=username).first()
+    return user.uid if user and user.password == password else None
 
 def get_registered_users() -> list[int]:
     pass
+
+def get_user_info(user_id:int) -> object:
+    return User.query.get(user_id)

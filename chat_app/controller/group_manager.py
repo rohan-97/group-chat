@@ -1,7 +1,11 @@
 #!/usr/bin/python3
 
-def fetch_groups_by_uid(uid:int) -> list:
-    pass
+from typing import Iterator
+from chat_app.model.data import GroupMembers
+
+
+def fetch_groups_by_uid(user_id:int) -> Iterator:
+    return GroupMembers.query.filter_by(uid = user_id)
 
 def create_group(group_name:str, creator_id:int, description:str=None) -> None:
     pass

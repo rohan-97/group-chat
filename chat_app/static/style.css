@@ -1,0 +1,9 @@
+div#login_box {
+    width: 50%;
+    margin-left: 20em;
+    margin-right: 20em;
+    margin-top: 10em;
+}
+div#flask-flash {
+    margin-top: 10px;
+}
