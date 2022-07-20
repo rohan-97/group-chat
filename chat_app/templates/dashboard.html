@@ -5,4 +5,44 @@
 User ID : {{session_data['user_id']}}<br>
 User Logged In : {{session_data['user_name']}}<br>
 Is User Admin : {{session_data['is_admin']}}<br>
+
+<br>
+<br>
+<br>
+{% if session_data['is_admin'] %}
+<a class="waves-effect waves-light btn blue-grey darken-3" onclick="location.href = 'admin';"><i class="material-icons right">person_pin</i>Administrative Settings</a>
+{% endif %}
+<br>
+<br>
+<br>
+<ul class="collection">
+    <li class="collection-item avatar blue-grey lighten-5">
+      <img src="images/yuna.jpg" alt="" class="circle">
+      <span class="title">Title</span>
+      <p>First Line</p>
+      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+    </li>
+    <li class="collection-item avatar blue-grey lighten-5">
+      <i class="material-icons circle">folder</i>
+      <span class="title">Title</span>
+      <p>First Line</p>
+      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+    </li>
+    <li class="collection-item avatar blue-grey lighten-5">
+      <i class="material-icons circle green">insert_chart</i>
+      <span class="title">Title</span>
+      <p>First Line</p>
+      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+    </li>
+    <li class="collection-item avatar blue-grey lighten-5">
+      <i class="material-icons circle red">play_arrow</i>
+      <span class="title">Title</span>
+      <p>First Line</p>
+      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+    </li>
+  </ul>
+  <button class="btn-floating btn-large waves-effect waves-light red right fixed-action-btn"><i class="material-icons" onclick="location.href = 'admin';">add</i></button>
+
+
+
 {% endblock %}
