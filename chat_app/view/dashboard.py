@@ -1,6 +1,5 @@
 from flask import redirect, render_template, session
 from chat_app import app
-from chat_app.view.utils import requires_user_session
 
 @app.route("/dashboard", methods=["GET"])
 def dashboard_page():

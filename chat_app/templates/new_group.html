@@ -5,4 +5,42 @@
 User ID : {{session_data['user_id']}}<br>
 User Logged In : {{session_data['user_name']}}<br>
 Is User Admin : {{session_data['is_admin']}}<br>
+<br>
+<br>
+<br>
+<div class="row">
+    <div class="col m3 s0"></div>
+    <div class="col s12 m6">
+      <div class="card-panel blue-grey lighten-5">
+            <div class="row">
+                <form class="col s12">
+                  <div class="row">
+                    <div class="input-field col s12 ">
+                      <i class="material-icons prefix">person_outline</i>
+                      <input id="icon_prefix" type="text" name="groupname" class="validate">
+                      <label for="icon_prefix">Group Name</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <textarea id="textarea1" class="materialize-textarea" name="groupdesc"></textarea>
+                        <label for="textarea1">Group description</label>
+                    </div>
+                    
+                    <div class="input-field col s12 m10">
+                        <select multiple class="icons" required>
+                          <option value="" disabled selected>Select group members</option>
+                          <option value="" data-icon="{{ url_for('static', filename='images/goku.png') }}" class="left">example 1</option>
+                          <option value="" data-icon="{{ url_for('static', filename='images/goku.png') }}" class="left">example 2</option>
+                          <option value="" data-icon="{{ url_for('static', filename='images/goku.png') }}" class="left">example 3</option>
+                        </select>
+                        <label>Images in select</label>
+                    </div>
+                    <button class="btn waves-effect waves-light col s12 m2" id="create-group-button" type="submit" name="action">Create!
+                        <i class="material-icons right">send</i>
+                    </button>
+                  </div>
+                </form>
+              </div>
+      </div>
+    </div>
+  </div>
 {% endblock %}

@@ -6,7 +6,9 @@ from chat_app.view.utils import requires_user_session
 @app.route("/", methods=["GET", "POST"])
 def login_page():
     if request.method == "GET":
-        return render_template("login.html")
+        if 'user_id' in session:
+            return redirect('dashboard')
+        return render_template("login.html", display_logout=False, display_admin=False)
     else:
         username=request.form.get('username')
         password=request.form.get('password')

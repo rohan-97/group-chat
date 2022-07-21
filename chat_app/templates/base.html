@@ -8,10 +8,23 @@
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
     {% block head %}{% endblock %}
 </head>
 <body onload="flashMessage()"">
+    <nav>
+        <div class="nav-wrapper teal darken-2">
+          <a href="dashboard" class="brand-logo center">Group Chat app</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            {% if display_admin and session_data.get('is_admin') %}
+            <li><a href="admin">Admin</a></li>
+            {% endif %}
+            {% if display_logout %}
+            <li><a href="logout">Log out</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
     <div class="container">
         <script>
         function flashMessage() {
@@ -33,5 +46,6 @@
     </div>
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="{{ url_for('static', filename='js/global.js') }}"></script>
 </body>
 </html>
