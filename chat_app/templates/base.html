@@ -12,19 +12,21 @@
     {% block head %}{% endblock %}
 </head>
 <body onload="flashMessage()"">
-    <nav>
-        <div class="nav-wrapper teal darken-2">
-          <a href="dashboard" class="brand-logo center">Group Chat app</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            {% if display_admin and session_data.get('is_admin') %}
-            <li><a href="admin">Admin</a></li>
-            {% endif %}
-            {% if display_logout %}
-            <li><a href="logout">Log out</a></li>
-            {% endif %}
-          </ul>
-        </div>
-      </nav>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper teal darken-2">
+                <a href="dashboard" class="brand-logo center">Group Chat app</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    {% if session_data and session_data.get('is_admin') %}
+                    <li><a href="admin">Admin</a></li>
+                    {% endif %}
+                    {% if session_data and 'user_id' in session_data %}
+                    <li><a href="logout">Log out</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </div>
     <div class="container">
         <script>
         function flashMessage() {

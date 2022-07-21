@@ -7,8 +7,8 @@ class GroupMembersModelView(ModelView):
     column_list = ['gid', 'uid', 'is_group_admin']
 
 admin = Admin(app)
-admin.add_view(ModelView(User, db.session))
-admin.add_view(ModelView(Group, db.session))
-admin.add_view(GroupMembersModelView(GroupMembers, db.session))
-admin.add_view(ModelView(Messages, db.session))
-admin.add_view(ModelView(MessageLikeMap, db.session))
+admin.add_view(ModelView(User, DB.session))
+admin.add_view(ModelView(Group, DB.session))
+admin.add_view(GroupMembersModelView(GroupMembers, DB.session))
+admin.add_view(ModelView(Messages, DB.session))
+admin.add_view(ModelView(MessageLikeMap, DB.session))

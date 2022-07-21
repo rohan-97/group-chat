@@ -8,7 +8,7 @@ def login_page():
     if request.method == "GET":
         if 'user_id' in session:
             return redirect('dashboard')
-        return render_template("login.html", display_logout=False, display_admin=False)
+        return render_template("login.html")
     else:
         username=request.form.get('username')
         password=request.form.get('password')

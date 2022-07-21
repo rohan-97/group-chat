@@ -7,34 +7,34 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///messaging.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'test1234'
 
-db = SQLAlchemy(app)
+DB = SQLAlchemy(app)
 
-class User(db.Model):
-    uid = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    password = db.Column(db.String(20), nullable=False)
-    name = db.Column(db.String(20), nullable=False)
-    is_admin = db.Column(db.Boolean, default=False, nullable=False)
+class User(DB.Model):
+    uid = DB.Column(DB.Integer, primary_key=True)
+    username = DB.Column(DB.String(20), unique=True, nullable=False)
+    password = DB.Column(DB.String(20), nullable=False)
+    name = DB.Column(DB.String(20), nullable=False)
+    is_admin = DB.Column(DB.Boolean, default=False, nullable=False)
 
-class Group(db.Model):
-    gid = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(20), nullable=False)
-    description = db.Column(db.Text)
+class Group(DB.Model):
+    gid = DB.Column(DB.Integer, primary_key=True)
+    name = DB.Column(DB.String(20), nullable=False)
+    description = DB.Column(DB.Text)
 
-class GroupMembers(db.Model):
-    gid = db.Column(db.Integer, ForeignKey(User.__table__.c['uid']), primary_key=True)
-    uid = db.Column(db.Integer, ForeignKey(Group.__table__.c['gid']), primary_key=True)
-    is_group_admin = db.Column(db.Boolean, default=False)
+class GroupMembers(DB.Model):
+    gid = DB.Column(DB.Integer, ForeignKey(User.__table__.c['uid']), primary_key=True)
+    uid = DB.Column(DB.Integer, ForeignKey(Group.__table__.c['gid']), primary_key=True)
+    is_group_admin = DB.Column(DB.Boolean, default=False)
 
-class Messages(db.Model):
-    msgid = db.Column(db.Integer, primary_key=True) 
-    gid = db.Column(db.Integer, ForeignKey(User.__table__.c['uid']), nullable=False)
-    uid = db.Column(db.Integer, ForeignKey(Group.__table__.c['gid']), nullable=False)
-    message = db.Column(db.Text, nullable=False)
-    send_time = db.Column(db.DateTime, primary_key=True, nullable=False)
+class Messages(DB.Model):
+    msgid = DB.Column(DB.Integer, primary_key=True) 
+    gid = DB.Column(DB.Integer, ForeignKey(User.__table__.c['uid']), nullable=False)
+    uid = DB.Column(DB.Integer, ForeignKey(Group.__table__.c['gid']), nullable=False)
+    message = DB.Column(DB.Text, nullable=False)
+    send_time = DB.Column(DB.DateTime, primary_key=True, nullable=False)
 
-class MessageLikeMap(db.Model):
-    msgid = db.Column(db.Integer, ForeignKey(Messages.__table__.c['msgid']), primary_key=True)
-    uid = db.Column(db.Integer, ForeignKey(Group.__table__.c['gid']), primary_key=True)
+class MessageLikeMap(DB.Model):
+    msgid = DB.Column(DB.Integer, ForeignKey(Messages.__table__.c['msgid']), primary_key=True)
+    uid = DB.Column(DB.Integer, ForeignKey(Group.__table__.c['gid']), primary_key=True)
 
-db.create_all()
+DB.create_all()

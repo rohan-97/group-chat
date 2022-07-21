@@ -1,14 +1,27 @@
 #!/usr/bin/python3
 
 from typing import Iterator
-from chat_app.model.data import GroupMembers
+from chat_app.model.data import DB, Group, GroupMembers
 
 
 def fetch_groups_by_uid(user_id:int) -> Iterator:
-    return GroupMembers.query.filter_by(uid = user_id)
+    groups = GroupMembers.query.filter_by(uid = user_id).all()
+    return list(filter(None, map(lambda mapping:Group.query.get(mapping.gid), groups)))
 
-def create_group(group_name:str, creator_id:int, description:str=None) -> None:
-    pass
+
+def create_group(group_name:str, creator_id:int, description:str=None, group_users:list=[]) -> tuple:
+    try:
+        new_group = Group(name=group_name, description=description)
+        group_users.append(creator_id)
+        DB.session.add(new_group)
+        DB.session.flush()
+        for user_id in group_users:
+            new_group_member = GroupMembers(gid=new_group.gid, uid=user_id, is_group_admin=user_id==creator_id)
+            DB.session.add(new_group_member)
+        DB.session.commit()
+        return True, ""
+    except Exception as e:
+        return False, str(e)
 
 def update_group(group_id:int, user_id:int, group_name:str=None, description:str=None) ->None:
     pass

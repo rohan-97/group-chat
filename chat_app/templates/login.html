@@ -2,48 +2,32 @@
 {% block title %}You Shall Not Pass{% endblock %}
 
 {% block body %}
-<!-- <div class="card" id="login_box">
-    <div class="card-body">            
-        <form method="POST">
-            <div class="mb-3">
-                <label for="inputUsername" class="form-label">Username</label>
-                <input type="text" class="form-control" id="inputUsername" name="username">
-            </div>
-            <div class="mb-3">
-                <label for="inputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="inputPassword1" name="password">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-</div> -->
-
 <div class="row" id="card-row">
-    <div class="col m3 s0"></div>
-    <div class="col s12 m6">
-      <div class="card-panel blue-grey lighten-5">
-        <span class="card-title col s12 m12 center"><h3>Login</h3></span>
-            <div class="row">
-                <form class="col s12" method="POST">
-                  <div class="row">
-                    <div class="input-field col s12 ">
-                      <i class="material-icons prefix">person_outline</i>
-                      <input id="icon_prefix" type="text" name="username" class="validate">
-                      <label for="icon_prefix">Username</label>
-                    </div>
-                    <div class="input-field col s12 ">
-                      <i class="material-icons prefix">lock_outline</i>
-                      <input id="password_input" type="password" name="password">
-                      <label for="password_input">Password</label>
-                    </div>
-                    <div class="col s0 m3"></div>
-                    <button class="btn waves-effect waves-light col s12 m6" id="login-button" type="submit" name="action">Login
-                        <i class="material-icons right">send</i>
-                    </button>
-                  </div>
-                </form>
-              </div>
+  <div class="col m3 s0"></div>
+  <div class="col s12 m6">
+    <div class="card-panel blue-grey lighten-5">
+      <span class="card-title col s12 m12 center"><h3>Login</h3></span>
+      <div class="row">
+        <form class="col s12" method="POST">
+          <div class="row">
+            <div class="input-field col s12 ">
+              <i class="material-icons prefix">person_outline</i>
+              <input id="icon_prefix" type="text" name="username" class="validate">
+              <label for="icon_prefix">Username</label>
+            </div>
+            <div class="input-field col s12 ">
+              <i class="material-icons prefix">lock_outline</i>
+              <input id="password_input" type="password" name="password">
+              <label for="password_input">Password</label>
+            </div>
+            <div class="col s0 m3"></div>
+            <button class="btn waves-effect waves-light col s12 m6" id="login-button" type="submit" name="action">Login
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
 {% endblock %}

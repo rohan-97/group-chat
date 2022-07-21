@@ -17,8 +17,11 @@ def authenticate_user(username:str, password:str) -> int:
     user = User.query.filter_by(username=username).first()
     return user.uid if user and user.password == password else None
 
-def get_registered_users() -> list[int]:
-    pass
+def get_registered_users() -> list[object]:
+    return User.query.all()
+
+def get_registered_users_id() -> list[int]:
+    return list(map(lambda user:user.uid, get_registered_users()))
 
 def get_user_info(user_id:int) -> object:
     return User.query.get(user_id)
