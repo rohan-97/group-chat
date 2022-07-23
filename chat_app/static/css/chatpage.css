@@ -1,0 +1,24 @@
+div#chatbox {
+    height: 40em;
+    overflow-y: auto;
+}
+div#chat-message {
+    border-radius: 10px;
+    max-width: 80%;
+    padding: 6px;
+}
+div#chat-icon {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 15px;
+}
+div#chat-message-content {
+    padding: 0;
+    margin-left:5px;
+    margin-right:5px;
+}
+div#chat-panel {
+    width: auto;
+    max-width: 70%;
+}
+

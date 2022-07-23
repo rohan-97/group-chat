@@ -15,13 +15,13 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper teal darken-2">
-                <a href="dashboard" class="brand-logo center">Group Chat app</a>
+                <a href="{{ url_for('dashboard_page') }}" class="brand-logo center">Group Chat app</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     {% if session_data and session_data.get('is_admin') %}
-                    <li><a href="admin">Admin</a></li>
+                    <li><a href="/admin">Admin</a></li>
                     {% endif %}
                     {% if session_data and 'user_id' in session_data %}
-                    <li><a href="logout">Log out</a></li>
+                    <li><a href="{{ url_for('logout') }}">Log out</a></li>
                     {% endif %}
                 </ul>
             </div>

@@ -8,6 +8,9 @@ def fetch_groups_by_uid(user_id:int) -> Iterator:
     groups = GroupMembers.query.filter_by(uid = user_id).all()
     return list(filter(None, map(lambda mapping:Group.query.get(mapping.gid), groups)))
 
+def fetch_groups_by_gid(group_id:int) -> object:
+    return Group.query.get(group_id)
+
 
 def create_group(group_name:str, creator_id:int, description:str=None, group_users:list=[]) -> tuple:
     try:

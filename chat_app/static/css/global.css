@@ -4,3 +4,12 @@ div#card-row {
 button#create-group-button {
     margin-top: 1rem;
 }
+div#modify-user-panel {
+    overflow-y: auto;
+    height: 20rem;
+    margin-top: 6px;
+}
+div#dashboard-panel {
+    overflow-y: auto;
+    max-height: 40rem;
+}
