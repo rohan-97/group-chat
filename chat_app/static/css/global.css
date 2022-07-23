@@ -13,3 +13,9 @@ div#dashboard-panel {
     overflow-y: auto;
     max-height: 40rem;
 }
+i.user-card-icon {
+    margin-top: 6px;
+}
+i#group-Name-banner {
+    margin-left: 11px;
+}

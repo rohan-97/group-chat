@@ -1,7 +1,6 @@
 from flask import flash, redirect, render_template, request, session
 from chat_app import app
 from chat_app.controller.user_manager import authenticate_user, get_user_info
-from chat_app.view.utils import requires_user_session
 
 @app.route("/", methods=["GET", "POST"])
 def login_page():

@@ -33,3 +33,7 @@ def get_registered_users_id() -> list[int]:
 
 def get_user_info(user_id:int) -> object:
     return User.query.get(user_id)
+
+def is_user_group_admin(user_id:int, group_id:int) -> bool:
+    group_membership = GroupMembers.query.get(gid=group_id)
+    return group_membership.is_group_admin

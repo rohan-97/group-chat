@@ -10,7 +10,7 @@
   <div class="col s12 m6">
     <div class="card-panel blue-grey lighten-5">
       <div class="row">
-        <form class="col s12">
+        <form class="col s12" method="PUT">
           <div class="row">
             <div class="input-field col s12 ">
               <input id="icon_prefix" type="text" name="groupname" class="validate">
@@ -21,7 +21,7 @@
               <label for="textarea1">Group description</label>
             </div>
           </div>
-          <div data-target="modal1" class="btn-floating btn-large waves-effect waves-light red right fixed-action-btn modal-trigger"><i class="material-icons">add</i></div>
+          <div data-target="modal1" class="btn-floating btn-large waves-effect waves-light red right fixed-action-btn modal-trigger"><i class="material-icons">group_add</i></div>
           <!-- Modal Structure -->
           <div id="modal1" class="modal">
             <div class="modal-content">
@@ -29,11 +29,11 @@
               <ul class="collection">
                 {% for user in users_not_in_group %}
                 <li class="collection-item avatar blue-grey lighten-5">
-                  <i class="material-icons circle">folder</i>
+                  <i class="material-icons circle blue user-card-icon">person_outline</i>
                   <label for="user-tile-name">{{user.username}}</label>
                   <p id="user-tile-name" class="black-text title">{{user.name}}</p>
                   <span class="secondary-content">
-                    <a class="waves-effect waves-light btn-small green">Add User</a>
+                    <a class="waves-effect waves-light btn-small green" onclick="add_user('{{user.uid}}', '{{group.gid}}')">Add User</a>
                   </span>
                 </li>
                 {% endfor %}
@@ -49,7 +49,7 @@
           <ul class="collection">
             {% for user, is_group_admin in users %}
             <li class="collection-item avatar blue-grey lighten-5">
-              <i class="material-icons circle">folder</i>
+              <i class="material-icons circle blue user-card-icon">person_outline</i>
               <label for="user-tile-name">{{user.username}}</label>
               <p id="user-tile-name" class="black-text title">{{user.name}}</p>
               <span class="secondary-content">
@@ -72,4 +72,8 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block javascript_imports %}
+<script src="{{ url_for('static', filename='js/group_settings.js') }}"></script>
 {% endblock %}
