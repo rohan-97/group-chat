@@ -34,11 +34,15 @@ def get_registered_users_id() -> list[int]:
 def get_user_info(user_id:int) -> object:
     return User.query.get(user_id)
 
-def get_user_group_membership_details(user_id:int, group_id:int) -> bool:
+def get_user_group_membership_details(user_id:int, group_id:int) -> object:
     group_membership = GroupMembers.query.get((group_id, user_id))
     if not group_membership:
         raise Exception(f"User with uid : {user_id} is not part of group : {group_id}")
     return group_membership
+
+def is_user_part_of_group(user_id:int, group_id:int) -> bool:
+    group_membership = GroupMembers.query.get((group_id, user_id))
+    return group_membership != None
 
 def is_user_group_admin(user_id:int, group_id:int) -> bool:
     group_membership = get_user_group_membership_details(user_id, group_id)

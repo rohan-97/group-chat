@@ -11,3 +11,4 @@ from chat_app.view import admin
 from chat_app.view import auth
 from chat_app.view import dashboard
 from chat_app.view import groups
+from chat_app.view import messages

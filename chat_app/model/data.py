@@ -27,11 +27,11 @@ class GroupMembers(DB.Model):
     is_group_admin = DB.Column(DB.Boolean, default=False)
 
 class Messages(DB.Model):
-    msgid = DB.Column(DB.Integer, primary_key=True) 
+    msgid = DB.Column(DB.Integer, primary_key=True, autoincrement=True) 
     gid = DB.Column(DB.Integer, ForeignKey(User.__table__.c['uid']), nullable=False)
     uid = DB.Column(DB.Integer, ForeignKey(Group.__table__.c['gid']), nullable=False)
     message = DB.Column(DB.Text, nullable=False)
-    send_time = DB.Column(DB.DateTime, primary_key=True, nullable=False)
+    send_time = DB.Column(DB.DateTime, nullable=False)
 
 class MessageLikeMap(DB.Model):
     msgid = DB.Column(DB.Integer, ForeignKey(Messages.__table__.c['msgid']), primary_key=True)

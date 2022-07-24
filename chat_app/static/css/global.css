@@ -23,3 +23,6 @@ div.spacing-vertical {
 i#group-Name-banner {
     margin-left: 11px;
 }
+.nowrap {
+    white-space: nowrap;
+}
