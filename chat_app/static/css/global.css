@@ -16,6 +16,10 @@ div#dashboard-panel {
 i.user-card-icon {
     margin-top: 6px;
 }
+div.spacing-vertical {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 i#group-Name-banner {
     margin-left: 11px;
 }

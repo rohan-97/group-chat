@@ -34,6 +34,16 @@ def get_registered_users_id() -> list[int]:
 def get_user_info(user_id:int) -> object:
     return User.query.get(user_id)
 
+def get_user_group_membership_details(user_id:int, group_id:int) -> bool:
+    group_membership = GroupMembers.query.get((group_id, user_id))
+    if not group_membership:
+        raise Exception(f"User with uid : {user_id} is not part of group : {group_id}")
+    return group_membership
+
 def is_user_group_admin(user_id:int, group_id:int) -> bool:
-    group_membership = GroupMembers.query.get(gid=group_id)
+    group_membership = get_user_group_membership_details(user_id, group_id)
     return group_membership.is_group_admin
+
+def assert_user_is_group_admin(user_id:int, group_id:int) -> bool:
+    if not is_user_group_admin(user_id=user_id, group_id=group_id):
+        raise Exception(f"Current user has insufficient privilege")

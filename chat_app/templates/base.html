@@ -17,6 +17,9 @@
             <div class="nav-wrapper teal darken-2">
                 <a href="{{ url_for('dashboard_page') }}" class="brand-logo center">Gossip</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    {% if session_data %}
+                    <li><span>Hello, {{session.get('user_name').capitalize()}}</span></li>
+                    {% endif %}
                     {% if session_data and session_data.get('is_admin') %}
                     <li><a href="/admin">Admin</a></li>
                     {% endif %}

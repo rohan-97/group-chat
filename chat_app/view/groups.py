@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from flask import flash, redirect, render_template, request, session, url_for
 from chat_app import app
-from chat_app.controller.group_manager import add_user_to_group, create_group, fetch_groups_by_gid, update_group
-from chat_app.controller.user_manager import get_registered_users, get_users_from_group, get_users_which_are_not_in_group
+from chat_app.controller.group_manager import add_user_to_group, create_group, fetch_groups_by_gid, remove_user_from_group, set_group_admin_value, update_group
+from chat_app.controller.user_manager import get_registered_users, get_users_from_group, get_users_which_are_not_in_group, is_user_group_admin
 from chat_app.view.utils import prepare_json_response, process_flash
 
 @app.route("/create_group", methods=["GET", "POST"])
@@ -24,7 +24,11 @@ def edit_group_page(group_id:int):
         group_info = fetch_groups_by_gid(group_id=group_id)
         users = get_users_from_group(group_id=group_id)
         users_not_in_group = get_users_which_are_not_in_group(group_id=group_id)
-        return render_template("group_settings.html", session_data=dict(session), group=group_info, users=users, users_not_in_group=users_not_in_group)
+        is_curr_user_group_admin = is_user_group_admin(session.get('user_id'), group_id=group_id)
+        return render_template("group_settings.html", session_data=dict(session), group=group_info,
+                users=users, users_not_in_group=users_not_in_group, 
+                is_current_user_admin= is_curr_user_group_admin,
+                is_user_group_admin=is_user_group_admin)
     else:
         grp_name = request.form.get("groupname")
         grp_description = request.form.get("groupdesc")
@@ -43,8 +47,29 @@ def group_chat_page(group_id:int):
 
 @app.route("/api/usergroup/manage", methods=["POST", "DELETE"])
 def manage_group_user():
+    uid = request.json.get('user_id')
+    group_id = request.json.get('group_id')
     if request.method == "POST":
-        uid = request.json.get('user_id')
-        group_id = request.json.get('group_id')
         res, message = add_user_to_group(group_id, session.get('user_id'), uid)
-        return prepare_json_response(200 if res else 400, {"message":message})
+    else:
+        res, message = remove_user_from_group(group_id, session.get('user_id'), uid)
+    return prepare_json_response(200 if res else 400, {"message":message})
+
+@app.route("/api/usergroup/admin", methods=["POST"])
+def toggle_group_admin_privileges():
+    uid = request.json.get('user_id')
+    group_id = request.json.get('group_id')
+    is_group_admin = request.json.get('is_group_admin')
+    print(f"ROhan Debug : {uid} : uid group id {group_id}")
+    res, message = set_group_admin_value(group_id, session.get('user_id'), uid, not is_group_admin)
+    if res:
+        if is_group_admin:
+            message = "Successfully revoked group admin privileges from user"
+        else:
+            message = "Successfully added group admin privileges to user"
+    else:
+        message = f"Error: {message}"
+    
+    return prepare_json_response(200 if res else 400, {"message":message})
+
+

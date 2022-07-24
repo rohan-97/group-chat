@@ -8,56 +8,77 @@
 <div class="row">
   <div class="col m3 s0"></div>
   <div class="col s12 m6">
+    <nav>
+      <div class="nav-wrapper cyan darken-4">
+        <a href="{{url_for('group_chat_page', group_id=group.gid)}}" class="brand-logo center">{{group.name}}</a>
+      </div>
+    </nav>
     <div class="card-panel blue-grey lighten-5">
       <div class="row">
         <form class="col s12" method="PUT">
           <div class="row">
             <div class="input-field col s12 ">
-              <input id="icon_prefix" type="text" name="groupname" class="validate">
+              <input id="icon_prefix" type="text" name="groupname" class="validate"/>
               <label for="icon_prefix">Group Name</label>
             </div>
             <div class="input-field col s12">
               <textarea id="textarea1" class="materialize-textarea" name="groupdesc"></textarea>
               <label for="textarea1">Group description</label>
             </div>
-          </div>
-          <div data-target="modal1" class="btn-floating btn-large waves-effect waves-light red right fixed-action-btn modal-trigger"><i class="material-icons">group_add</i></div>
-          <!-- Modal Structure -->
-          <div id="modal1" class="modal">
-            <div class="modal-content">
-              <h4>Modal Header</h4>
-              <ul class="collection">
-                {% for user in users_not_in_group %}
-                <li class="collection-item avatar blue-grey lighten-5">
-                  <i class="material-icons circle blue user-card-icon">person_outline</i>
-                  <label for="user-tile-name">{{user.username}}</label>
-                  <p id="user-tile-name" class="black-text title">{{user.name}}</p>
-                  <span class="secondary-content">
-                    <a class="waves-effect waves-light btn-small green" onclick="add_user('{{user.uid}}', '{{group.gid}}')">Add User</a>
-                  </span>
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-            <div class="modal-footer">
-              <div class="modal-close waves-effect waves-green btn-flat">Close</div>
+            <div class="col s12 m12 spacing-vertical">
+              <button class="btn waves-effect waves-light col s12 m12" id="create-group-button" type="submit" name="submit">Update!</button>
             </div>
           </div>
-          <button class="btn waves-effect waves-light col s12 m12" id="create-group-button" type="submit" name="submit">Update!</button>
         </form>
+        <div class="row">
+          <div class="col s12 m4 spacing-vertical">
+            <button class="btn waves-effect waves-light col s12 m12 red darken-4" id="leave-group-button" onclick="delete_user('{{session_data.user_id}}', '{{group.gid}}', true)">Leave Group</button>
+          </div>
+          <div class="col s12 m4 spacing-vertical">
+            <button class="btn waves-effect waves-light col s12 m12 red darken-4" id="delete-group-button">Delete Group</button>
+          </div>
+          <div class="col m2 spacing-vertical right">
+            <div data-target="modal1" class="btn-floating btn-large waves-effect waves-light red right fixed-action-btn modal-trigger"><i class="material-icons">group_add</i></div>
+          </div>
+        </div>
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+          <div class="modal-content">
+            <h4>Add User</h4>
+            <ul class="collection">
+              {% for user in users_not_in_group %}
+              <li class="collection-item avatar blue-grey lighten-5" id="user-entry-modal-{{user.uid}}">
+                <i class="material-icons circle blue user-card-icon">person_outline</i>
+                <label for="user-tile-name">{{user.username}}</label>
+                <p id="user-tile-name" class="black-text title">{{user.name}}</p>
+                <span class="secondary-content">
+                  <a class="waves-effect waves-light btn-small green" onclick="add_user('{{user.uid}}', '{{group.gid}}')">Add User</a>
+                </span>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <div class="modal-close waves-effect waves-green btn-flat">Close</div>
+          </div>
+        </div>
         <div class="col m12" id="modify-user-panel">
           <ul class="collection">
             {% for user, is_group_admin in users %}
-            <li class="collection-item avatar blue-grey lighten-5">
+            <li class="collection-item avatar blue-grey lighten-5" id="user-entry-settings-page-{{user.uid}}">
               <i class="material-icons circle blue user-card-icon">person_outline</i>
               <label for="user-tile-name">{{user.username}}</label>
               <p id="user-tile-name" class="black-text title">{{user.name}}</p>
               <span class="secondary-content">
-                <a class="waves-effect waves-light btn-small red darken-2">Delete User</a>
+                <a class="waves-effect waves-light btn-small red darken-2" onclick="delete_user('{{user.uid}}', '{{group.gid}}')">Delete User</a>
                 <div class="switch">
                   <label>
                     Admin
-                    <input type="checkbox">
+                    {% if is_user_group_admin(user.uid, group.gid) %}
+                    <input type="checkbox" checked name="group_admin" id="is-group-admin-{{user.uid}}" onclick="toggle_group_admin('{{user.uid}}', '{{group.gid}}')">
+                    {% else %}
+                    <input type="checkbox" name="group_admin" id="is-group-admin-{{user.uid}}" onclick="toggle_group_admin('{{user.uid}}', '{{group.gid}}')">
+                    {% endif %}
                     <span class="lever"></span>
                   </label>
                 </div>
@@ -65,8 +86,6 @@
             </li>
             {% endfor %}
           </ul>
-          
-          
         </div>
       </div>
     </div>
