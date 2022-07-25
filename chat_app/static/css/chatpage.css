@@ -22,3 +22,6 @@ div#chat-panel {
     max-width: 70%;
 }
 
+div#chat-message-content {
+    margin-right: 16px;
+}

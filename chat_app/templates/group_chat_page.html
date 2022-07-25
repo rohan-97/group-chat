@@ -23,7 +23,6 @@
       <!-- Messages -->
       
       <div class="messages" id="root-message-element">
-        
       </div>
       
       <!-- end messages -->
@@ -45,6 +44,7 @@
 <script src="{{url_for('static', filename='js/chatpage.js')}}"></script>
 <script>
   current_user_id = '{{session_data.user_id}}';
-  populate_with_recent_messages('{{group.gid}}');
+  group_id = '{{group.gid}}';
+  populate_with_recent_messages();
 </script>
 {% endblock %}

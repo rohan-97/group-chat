@@ -18,7 +18,7 @@ def create_group_page():
         process_flash(res, message)
         return redirect('/dashboard')
 
-@app.route("/edit_group/<int:group_id>", methods=["GET", "PUT"])
+@app.route("/edit_group/<int:group_id>", methods=["GET", "POST"])
 def edit_group_page(group_id:int):
     if request.method == "GET":
         group_info = fetch_groups_by_gid(group_id=group_id)
@@ -30,6 +30,7 @@ def edit_group_page(group_id:int):
                 is_current_user_admin= is_curr_user_group_admin,
                 is_user_group_admin=is_user_group_admin)
     else:
+        print(f"Here")
         grp_name = request.form.get("groupname")
         grp_description = request.form.get("groupdesc")
         if not grp_name:

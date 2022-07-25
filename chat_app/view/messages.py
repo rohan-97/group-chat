@@ -19,7 +19,7 @@ def message_manager():
 def get_messages(group_id:int, page_number:int=0):
     if not is_user_part_of_group(session.get('user_id'), group_id):
         return prepare_json_response(401, "User is not part of group")
-    res, messages = fetch_recent_messages(group_id=group_id, records=10, page_no=page_number)
+    res, messages = fetch_recent_messages(group_id=group_id, records=5, page_no=page_number)
     if not res:
         return prepare_json_response(400, messages)
     response = []

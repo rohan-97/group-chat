@@ -1,8 +1,9 @@
 messages = []
 page_no = 0
+group_id = null
 current_user_id = null
 
-function populate_with_recent_messages(group_id) {
+function populate_with_recent_messages() {
     fetch('/api/message/'+group_id+"/"+page_no, {
         method: 'GET',
         headers: {
@@ -16,6 +17,9 @@ function populate_with_recent_messages(group_id) {
             msg_node = build_message(element.user_id, element.user_name, element.message);
             root_node.insertBefore(msg_node, root_node.children[0])
         });
+        if(data.length != 0){
+            root_node.insertBefore(get_load_more_button(), root_node.children[0])
+        }
         page_no += 1
         console.log(messages)
 
@@ -23,6 +27,23 @@ function populate_with_recent_messages(group_id) {
     .catch((error) => {
         M.toast({html:error})
     });
+}
+
+function load_more_messages() {
+    ele = document.querySelector('#load-more-button')
+    ele.remove()
+    populate_with_recent_messages()
+}
+
+function get_load_more_button() {
+    // <div class="row center">
+    //   <a class="waves-effect waves-teal btn-flat">Load More</a>
+    // </div>
+    root_div = document.createElement('div');
+    root_div.className = "row center"
+    root_div.id = "load-more-button"
+    root_div.innerHTML = '<a class="waves-effect waves-teal btn-flat" onclick="load_more_messages()">Load More</a>'
+    return root_div
 }
 
 function build_message(user_id, username, message) {

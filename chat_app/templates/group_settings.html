@@ -15,7 +15,7 @@
     </nav>
     <div class="card-panel blue-grey lighten-5">
       <div class="row">
-        <form class="col s12" method="PUT">
+        <form class="col s12" id="ser" method="POST" action="{{url_for('edit_group_page', group_id=group.gid)}}">
           <div class="row">
             <div class="input-field col s12 ">
               <input id="icon_prefix" type="text" name="groupname" class="validate"/>
@@ -26,7 +26,7 @@
               <label for="textarea1">Group description</label>
             </div>
             <div class="col s12 m12 spacing-vertical">
-              <button class="btn waves-effect waves-light col s12 m12" id="create-group-button" type="submit" name="submit">Update!</button>
+              <input class="btn waves-light col s12 m12" id="create-group-button" type="submit" name="submit" value="Update!"></input>
             </div>
           </div>
         </form>
