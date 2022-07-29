@@ -34,12 +34,14 @@
           <div class="col s12 m4 spacing-vertical">
             <button class="btn waves-effect waves-light col s12 m12 red darken-4" id="leave-group-button" onclick="delete_user('{{session_data.user_id}}', '{{group.gid}}', true)">Leave Group</button>
           </div>
+          {% if is_current_user_admin %}
           <div class="col s12 m4 spacing-vertical">
             <button class="btn waves-effect waves-light col s12 m12 red darken-4" id="delete-group-button">Delete Group</button>
           </div>
           <div class="col m2 spacing-vertical right">
             <div data-target="modal1" class="btn-floating btn-large waves-effect waves-light red right fixed-action-btn modal-trigger"><i class="material-icons">group_add</i></div>
           </div>
+          {% endif %}
         </div>
         <!-- Modal Structure -->
         <div id="modal1" class="modal">
@@ -69,6 +71,7 @@
               <i class="material-icons circle blue user-card-icon">person_outline</i>
               <label for="user-tile-name">{{user.username}}</label>
               <p id="user-tile-name" class="black-text title">{{user.name}}</p>
+              {% if is_current_user_admin %}
               <span class="secondary-content">
                 <a class="waves-effect waves-light btn-small red darken-2" onclick="delete_user('{{user.uid}}', '{{group.gid}}')">Delete User</a>
                 <div class="switch">
@@ -83,6 +86,9 @@
                   </label>
                 </div>
               </span>
+              {% elif is_group_admin %}
+              <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+              {% endif %}
             </li>
             {% endfor %}
           </ul>

@@ -53,7 +53,7 @@ def manage_group_user():
     if request.method == "POST":
         res, message = add_user_to_group(group_id, session.get('user_id'), uid)
     else:
-        res, message = remove_user_from_group(group_id, session.get('user_id'), uid)
+        res, message = remove_user_from_group(group_id, session.get('user_id'), int(uid))
     return prepare_json_response(200 if res else 400, {"message":message})
 
 @app.route("/api/usergroup/admin", methods=["POST"])

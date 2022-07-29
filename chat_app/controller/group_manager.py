@@ -50,7 +50,8 @@ def add_user_to_group(group_id:int, curr_user_id:int, target_user_id:int, add_as
 
 @handle_exception
 def remove_user_from_group(group_id:int, curr_user_id:int, target_user_id:int) -> tuple:
-    assert_user_is_group_admin(user_id=curr_user_id, group_id=group_id)
+    if curr_user_id != target_user_id:
+        assert_user_is_group_admin(user_id=curr_user_id, group_id=group_id)
     user_entry = GroupMembers.query.get((group_id, target_user_id))
     DB.session.delete(user_entry)
     DB.session.commit()
