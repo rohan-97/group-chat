@@ -1,20 +1,31 @@
 from django.shortcuts import render
 from flask import flash, redirect, render_template, request, session, url_for
 from chat_app import app
-from chat_app.controller.group_manager import add_user_to_group, create_group, fetch_groups_by_gid, remove_user_from_group, set_group_admin_value, update_group
+from chat_app.controller.group_manager import add_user_to_group, create_group, delete_group, fetch_groups_by_gid, remove_user_from_group, set_group_admin_value, update_group
 from chat_app.controller.user_manager import get_registered_users, get_users_from_group, get_users_which_are_not_in_group, is_user_group_admin
 from chat_app.view.utils import prepare_json_response, process_flash
 
-@app.route("/create_group", methods=["GET", "POST"])
+@app.route("/create_group", methods=["GET", "POST", "DELETE"])
 def create_group_page():
     if request.method == "GET":
         return render_template('new_group.html', session_data = dict(session), registered_users = get_registered_users())
+    elif request.method == "DELETE":
+        group_id = request.json.get("group_id")
+        print(f"Group_id : {group_id}")
+        if isinstance(group_id, str):
+            group_id = int(group_id)
+        res, message = delete_group(group_id=group_id, user_id=session.get("user_id"))
+        ret =  prepare_json_response(200 if res else 400, {"message":message})
+        return ret
     else:
         group_name = request.form.get("groupname")
         group_desc = request.form.get("groupdesc")
         # group_icon = request.form.get("group_icon")
         members = request.form.getlist("members")
+        if not members or members == "[]":
+            members = []
         res, message = create_group(group_name, session.get("user_id"), group_desc, members)
+        print(f"Rohan Debug res : {res}, msg : {message}")
         process_flash(res, message)
         return redirect('/dashboard')
 
@@ -30,7 +41,6 @@ def edit_group_page(group_id:int):
                 is_current_user_admin= is_curr_user_group_admin,
                 is_user_group_admin=is_user_group_admin)
     else:
-        print(f"Here")
         grp_name = request.form.get("groupname")
         grp_description = request.form.get("groupdesc")
         if not grp_name:
