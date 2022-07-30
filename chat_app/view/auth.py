@@ -18,7 +18,6 @@ def login_page():
             flash("password not provided", "danger")
             return redirect("/")
         user_id = authenticate_user(username, password)
-        print(f"Rohan debug : user_id : {user_id}")
         if user_id is None:
             flash("Invalid credentials!", "danger")
             return redirect("/")

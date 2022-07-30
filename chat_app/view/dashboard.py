@@ -8,5 +8,4 @@ def dashboard_page():
         return redirect("/")
     session_info = dict(session)
     user_groups = fetch_groups_by_uid(session.get('user_id'))
-    print(f"Rohan Debug : {user_groups}")
     return render_template("dashboard.html", session_data=session_info, groups=user_groups)

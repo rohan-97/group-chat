@@ -61,7 +61,6 @@ def toggle_group_admin_privileges():
     uid = request.json.get('user_id')
     group_id = request.json.get('group_id')
     is_group_admin = request.json.get('is_group_admin')
-    print(f"ROhan Debug : {uid} : uid group id {group_id}")
     res, message = set_group_admin_value(group_id, session.get('user_id'), uid, not is_group_admin)
     if res:
         if is_group_admin:
