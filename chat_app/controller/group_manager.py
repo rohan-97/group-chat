@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 
+from tokenize import group
 from typing import Iterator
 from chat_app.controller.controller_utils import handle_exception
 from chat_app.controller.user_manager import assert_user_is_group_admin, get_user_group_membership_details
-from chat_app.model.data import DB, Group, GroupMembers
+from chat_app.model.data import DB, Group, GroupMembers, Messages
 
 
 def fetch_groups_by_uid(user_id:int) -> Iterator:
@@ -39,6 +40,17 @@ def update_group(group_id:int, user_id:int, group_name:str=None, description:str
 @handle_exception
 def delete_group(group_id:int, user_id:int) -> tuple:
     assert_user_is_group_admin(user_id=user_id, group_id=group_id)
+    group_members = GroupMembers.query.filter_by(gid=group_id).all()
+    for each_relation in group_members:
+        DB.session.delete(each_relation)
+    messages = Messages.query.filter_by(gid=group_id).all()
+    for msg in messages:
+        DB.session.delete(msg)
+    DB.session.flush()
+    gobj = Group.query.get(group_id)
+    DB.session.delete(gobj)
+    DB.session.commit()
+    return True, "Group deleted successfully"
 
 @handle_exception
 def add_user_to_group(group_id:int, curr_user_id:int, target_user_id:int, add_as_admin:bool=False) -> tuple:

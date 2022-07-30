@@ -44,6 +44,27 @@ function delete_user(userid, groupid, go_to_homepage=false) {
       });
 }
 
+function delete_group(groupid) {
+    fetch('/create_group', {
+        method: 'DELETE',
+        body: JSON.stringify({
+            'group_id': groupid
+        }), // string or object
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(response => response.json())
+      .then(data => {
+        M.toast({html:data.message})
+        window.location.replace(window.location.origin);
+      })
+      .catch((error) => {
+        M.toast({html:data.message})
+      });
+}
+
+
+
 function toggle_group_admin(userid, groupid) {
     var is_admin = !document.querySelector("#is-group-admin-"+userid).checked;
     fetch('/api/usergroup/admin', {

@@ -36,7 +36,7 @@
           </div>
           {% if is_current_user_admin %}
           <div class="col s12 m4 spacing-vertical">
-            <button class="btn waves-effect waves-light col s12 m12 red darken-4" id="delete-group-button">Delete Group</button>
+            <button class="btn waves-effect waves-light col s12 m12 red darken-4" id="delete-group-button" onclick="delete_group('{{group.gid}}')">Delete Group</button>
           </div>
           <div class="col m2 spacing-vertical right">
             <div data-target="modal1" class="btn-floating btn-large waves-effect waves-light red right fixed-action-btn modal-trigger"><i class="material-icons">group_add</i></div>
