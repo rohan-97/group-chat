@@ -9,7 +9,6 @@ from tokenize import group
 BASE_DIR=dirname(dirname(getcwd()))
 sys.path.append(BASE_DIR)
 
-import pdb
 from chat_app.controller.user_manager import is_user_group_admin, is_user_part_of_group
 from chat_app.controller.group_manager import delete_group
 from chat_app.model.data import DB, Group, GroupMembers, MessageLikeMap, Messages, User
@@ -31,7 +30,6 @@ class GroupTestCase(unittest.TestCase):
         # Create a group entry in database
         # Login using user1
         """
-        pdb.set_trace()
         self.user1 = User(username="user1", password="user1234", name="user1", is_admin=True)
         self.user2 = User(username="user2", password="user1234", name="user2", is_admin=True)
         self.group = Group(name="testgroup", description="Test description")

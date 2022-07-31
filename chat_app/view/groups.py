@@ -24,7 +24,6 @@ def create_group_page():
         if not members or members == "[]":
             members = []
         res, message = create_group(group_name, session.get("user_id"), group_desc, members)
-        print(f"Rohan Debug res : {res}, msg : {message}")
         process_flash(res, message)
         return redirect('/dashboard')
 
