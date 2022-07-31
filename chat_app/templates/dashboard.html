@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+<br>
+<br>
+<br>
+<div class="collection" id="dashboard-panel">
+  {% for group in groups %}
+  <a href="group/{{group.gid}}" class="collection-item avatar blue-grey lighten-5">
+    <i class="material-icons circle user-card-icon light-blue darken-4">people_outline</i>
+    <span class="black-text title">{{group.name}}</span>
+    <p class="black-text ">{{group.description}}</p>
+    <span class="secondary-content"><i class="material-icons">grade</i></span>
+  </a>
+  {% endfor %}
+</div>
+<button class="btn-floating btn-large waves-effect waves-light red right fixed-action-btn"><i class="material-icons" onclick="location.href = 'create_group';">add</i></button>
+
+{% endblock %}

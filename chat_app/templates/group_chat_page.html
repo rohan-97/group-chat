@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/chatpage.css') }}">
+{% endblock %}
+{% block body %}
+<br>
+<br>
+<br>
+<div class="row">
+  <div class="col s12 m12">
+    <nav>
+      <div class="nav-wrapper indigo">
+        <a href="#" class="brand-logo"><i class="material-icons" id="group-Name-banner">group</i>{{group.name.capitalize()}}</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="{{url_for('edit_group_page', group_id=group.gid)}}">Group Settings</a></li>
+        </ul>
+      </div>
+    </nav>
+    
+    <div class="card-panel  blue-grey lighten-5" id="chatbox">
+      <!-- Messages -->
+      
+      <div class="messages" id="root-message-element">
+      </div>
+      
+      <!-- end messages -->
+      
+    </div>
+    
+  </div>
+  <div class="input-field col s11 m11">
+    <input placeholder="Start Typing here..." id="input-message" type="text">
+  </div>
+  <div class="col s1 m1">
+    <a class="btn-floating btn-large waves-effect waves-light teal" id="send-button" onclick="send_message('{{group.gid}}', '{{session_data.user_id}}')"><i class="material-icons">send</i></a>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block javascript_imports %}
+<script src="{{url_for('static', filename='js/chatpage.js')}}"></script>
+<script>
+  current_user_id = '{{session_data.user_id}}';
+  group_id = '{{group.gid}}';
+  populate_with_recent_messages(true);
+</script>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+<br>
+<br>
+<br>
+<div class="row">
+  <div class="col m3 s0"></div>
+  <div class="col s12 m6">
+    <nav>
+      <div class="nav-wrapper cyan darken-4">
+        <a href="{{url_for('group_chat_page', group_id=group.gid)}}" class="brand-logo center nowrap">{{group.name}}</a>
+      </div>
+    </nav>
+    <div class="card-panel blue-grey lighten-5">
+      <div class="row">
+        <form class="col s12" id="ser" method="POST" action="{{url_for('edit_group_page', group_id=group.gid)}}">
+          <div class="row">
+            <div class="input-field col s12 ">
+              <input id="icon_prefix" type="text" name="groupname" class="validate"/>
+              <label for="icon_prefix">Group Name</label>
+            </div>
+            <div class="input-field col s12">
+              <textarea id="textarea1" class="materialize-textarea" name="groupdesc"></textarea>
+              <label for="textarea1">Group description</label>
+            </div>
+            <div class="col s12 m12 spacing-vertical">
+              <input class="btn waves-light col s12 m12" id="create-group-button" type="submit" name="submit" value="Update!"></input>
+            </div>
+          </div>
+        </form>
+        <div class="row">
+          <div class="col s12 m4 spacing-vertical">
+            <button class="btn waves-effect waves-light col s12 m12 red darken-4" id="leave-group-button" onclick="delete_user('{{session_data.user_id}}', '{{group.gid}}', true)">Leave Group</button>
+          </div>
+          {% if is_current_user_admin %}
+          <div class="col s12 m4 spacing-vertical">
+            <button class="btn waves-effect waves-light col s12 m12 red darken-4" id="delete-group-button" onclick="delete_group('{{group.gid}}')">Delete Group</button>
+          </div>
+          <div class="col m2 spacing-vertical right">
+            <div data-target="modal1" class="btn-floating btn-large waves-effect waves-light red right fixed-action-btn modal-trigger"><i class="material-icons">group_add</i></div>
+          </div>
+          {% endif %}
+        </div>
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+          <div class="modal-content">
+            <h4>Add User</h4>
+            <ul class="collection">
+              {% for user in users_not_in_group %}
+              <li class="collection-item avatar blue-grey lighten-5" id="user-entry-modal-{{user.uid}}">
+                <i class="material-icons circle blue user-card-icon">person_outline</i>
+                <label for="user-tile-name">{{user.username}}</label>
+                <p id="user-tile-name" class="black-text title">{{user.name}}</p>
+                <span class="secondary-content">
+                  <a class="waves-effect waves-light btn-small green" onclick="add_user('{{user.uid}}', '{{group.gid}}')">Add User</a>
+                </span>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="modal-footer">
+            <div class="modal-close waves-effect waves-green btn-flat">Close</div>
+          </div>
+        </div>
+        <div class="col m12" id="modify-user-panel">
+          <ul class="collection">
+            {% for user, is_group_admin in users %}
+            <li class="collection-item avatar blue-grey lighten-5" id="user-entry-settings-page-{{user.uid}}">
+              <i class="material-icons circle blue user-card-icon">person_outline</i>
+              <label for="user-tile-name">{{user.username}}</label>
+              <p id="user-tile-name" class="black-text title">{{user.name}}</p>
+              {% if is_current_user_admin %}
+              <span class="secondary-content">
+                <a class="waves-effect waves-light btn-small red darken-2" onclick="delete_user('{{user.uid}}', '{{group.gid}}')">Delete User</a>
+                <div class="switch">
+                  <label>
+                    Admin
+                    {% if is_user_group_admin(user.uid, group.gid) %}
+                    <input type="checkbox" checked name="group_admin" id="is-group-admin-{{user.uid}}" onclick="toggle_group_admin('{{user.uid}}', '{{group.gid}}')">
+                    {% else %}
+                    <input type="checkbox" name="group_admin" id="is-group-admin-{{user.uid}}" onclick="toggle_group_admin('{{user.uid}}', '{{group.gid}}')">
+                    {% endif %}
+                    <span class="lever"></span>
+                  </label>
+                </div>
+              </span>
+              {% elif is_group_admin %}
+              <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block javascript_imports %}
+<script src="{{ url_for('static', filename='js/group_settings.js') }}"></script>
+{% endblock %}

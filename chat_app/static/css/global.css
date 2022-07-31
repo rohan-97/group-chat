@@ -1,0 +1,28 @@
+div#card-row {
+    margin-top: 17em;
+}
+button#create-group-button {
+    margin-top: 1rem;
+}
+div#modify-user-panel {
+    overflow-y: auto;
+    height: 20rem;
+    margin-top: 6px;
+}
+div#dashboard-panel {
+    overflow-y: auto;
+    max-height: 40rem;
+}
+i.user-card-icon {
+    margin-top: 6px;
+}
+div.spacing-vertical {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+i#group-Name-banner {
+    margin-left: 11px;
+}
+.nowrap {
+    white-space: nowrap;
+}

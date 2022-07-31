@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='materialize/css/materialize.min.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body onload="flashMessage()"">
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper teal darken-2">
+                <a href="{{ url_for('dashboard_page') }}" class="brand-logo center">Gossip</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    {% if session_data %}
+                    <li><span>Hello, {{session.get('user_name').capitalize()}}</span></li>
+                    {% endif %}
+                    {% if session_data and session_data.get('is_admin') %}
+                    <li><a href="/admin">Admin</a></li>
+                    {% endif %}
+                    {% if session_data and 'user_id' in session_data %}
+                    <li><a href="{{ url_for('logout') }}">Log out</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container">
+        <script>
+        function flashMessage() {
+        notif = [];
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, msg in messages %}
+                    notif.push("{{msg}}");
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        console.log(notif)
+        notif.forEach(val => M.toast({html:val}))
+        }
+        </script>
+        
+        {% block body %}
+        {% endblock %}
+    </div>
+    <!-- Compiled and minified JavaScript -->
+    <script src="{{ url_for('static', filename='materialize/js/materialize.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/global.js') }}"></script>
+    {% block javascript_imports %}
+    {% endblock %}
+</body>
+</html>
