@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from flask import flash, redirect, render_template, request, session, url_for
 from chat_app import app
 from chat_app.controller.group_manager import add_user_to_group, create_group, delete_group, fetch_groups_by_gid, remove_user_from_group, set_group_admin_value, update_group
