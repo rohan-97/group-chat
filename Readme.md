@@ -1,4 +1,4 @@
-# 1. Gossip: a group chat app 
+# Gossip: a group chat app 
 Gossip is a group chat app written in python using flask framework.  
 This application makes use of following flask plugins and features
 
@@ -14,6 +14,73 @@ For database we have used sqlite db and following is the schema of database
 
 We have following pages as a pert of project
 ![Web Pages](docs/img/Web%20Pages.jpg)
+
+
+# Project Setup
+
+1. Clone this repo
+2. install python dependencies
+```
+python3 -m pip3 install -r requirements.txt 
+```
+3. copy database file as original
+```
+mv -v chat_app/messaging.db.bak chat_app/messaging.db
+```
+4. Execute run.py on top directory
+```
+yoda@geek /mnt/workspace/git/group-chat $ python run.py 
+ * Serving Flask app 'chat_app' (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on all addresses (0.0.0.0)
+   WARNING: This is a development server. Do not use it in a production deployment.
+ * Running on http://127.0.0.1:5050
+ * Running on http://192.168.1.11:5050 (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 137-553-965
+```
+If you see above message, it means setup is ready, you can open localhost:5050 from local machine.
+
+# Executing unittests
+
+naviage to test directory  
+```
+cd ./chat_app/tests/
+```
+Execute following test command
+```
+python3 test.py
+```
+```
+output:
+yoda@geek /mnt/workspace/git/group-chat/chat_app/tests $ python3 test.py 
+...........
+----------------------------------------------------------------------
+Ran 11 tests in 0.715s
+
+OK
+```
+
+# Default Users
+
+1. user1:  
+- username=admin  
+- password=admin1234  
+- admin_privileges=True  
+2. user2:
+- username=johndoe
+- password=john1234
+- admin_privileges=False
+3. user3:
+- username=janedoe
+- password=jane1234
+- admin_privileges=False
+
+
 
 # Admin Page
 
@@ -74,48 +141,3 @@ following is screenshot for group settings page for a group-admin user
 Group-admin can add users using following page.
 
 ![Add user to group page](docs/img/add_user_to_group.png)
-
-# Project Setup
-
-1. Clone this repo
-2. install python dependencies
-```
-python3 -m pip3 install -r requirements.txt 
-```
-3. Execute run.py on top directory
-```
-yoda@geek /mnt/workspace/git/group-chat $ python run.py 
- * Serving Flask app 'chat_app' (lazy loading)
- * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
-   Use a production WSGI server instead.
- * Debug mode: on
- * Running on all addresses (0.0.0.0)
-   WARNING: This is a development server. Do not use it in a production deployment.
- * Running on http://127.0.0.1:5050
- * Running on http://192.168.1.11:5050 (Press CTRL+C to quit)
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 137-553-965
-```
-If you see above message, it means setup is ready, you can open localhost:5050 from local machine.
-
-# Executing unittests
-
-naviage to test directory  
-```cd ./chat_app/tests/```
-Execute following test command
-```
-python3 test.py
-```
-```
-output:
-yoda@geek /mnt/workspace/git/group-chat/chat_app/tests $ python3 test.py 
-...........
-----------------------------------------------------------------------
-Ran 11 tests in 0.715s
-
-OK
-```
-
-# Default Users
